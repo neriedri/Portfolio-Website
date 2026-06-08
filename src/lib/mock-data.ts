@@ -1,0 +1,167 @@
+import type { Project } from "@/types/project";
+
+/**
+ * Seed projects for the MVP. Replaced by the database/API in a later phase.
+ * Covers a spread of tags so the tag filter has something to work with, and
+ * intentionally includes edge cases: a project with no liveUrl, and one that
+ * is hidden (visible: false) to verify the public layer filters it out.
+ */
+export const mockProjects: Project[] = [
+  {
+    id: "taskflow",
+    title: { he: "TaskFlow", en: "TaskFlow" },
+    shortDescription: {
+      he: "לוח ניהול משימות עם גרירה ושחרור, מצבי עמודות וסינון חכם.",
+      en: "A kanban-style task board with drag-and-drop, columns, and smart filtering.",
+    },
+    description: {
+      he: "אפליקציית ניהול משימות בהשראת Kanban. המשתמש יוצר לוחות, מארגן משימות בעמודות וגורר ביניהן. כולל סינון לפי תגיות, חיפוש מיידי ושמירת מצב מקומית. נבנתה כדי לתרגל ניהול state מורכב ואינטראקציות גרירה נגישות.",
+      en: "A Kanban-inspired task manager. Users create boards, organize tasks into columns, and drag between them. Includes tag filtering, instant search, and local state persistence. Built to practice complex state management and accessible drag interactions.",
+    },
+    coverImage: "/covers/taskflow.svg",
+    githubUrl: "https://github.com/your-username/taskflow",
+    liveUrl: "https://taskflow.example.com",
+    tags: ["React", "TypeScript", "Tailwind CSS", "Zustand"],
+    featured: true,
+    order: 1,
+    visible: true,
+    role: "Solo",
+    year: 2025,
+    status: "completed",
+    createdAt: "2025-02-10T10:00:00.000Z",
+    updatedAt: "2025-03-01T10:00:00.000Z",
+  },
+  {
+    id: "devnotes-api",
+    title: { he: "DevNotes API", en: "DevNotes API" },
+    shortDescription: {
+      he: "REST API לניהול הערות בפורמט Markdown עם תגיות והרשאות.",
+      en: "A REST API for managing Markdown notes with tags and ownership.",
+    },
+    description: {
+      he: "שירות backend לניהול הערות מסוג Markdown. מספק נקודות קצה ל-CRUD, סינון לפי תגיות ועימוד תוצאות. בנוי על Express עם שכבת ולידציה, חיבור ל-PostgreSQL דרך Prisma ובדיקות אינטגרציה. דגש על מבנה נקי וטיפול שגיאות עקבי.",
+      en: "A backend service for Markdown notes. Exposes CRUD endpoints, tag filtering, and pagination. Built on Express with a validation layer, PostgreSQL via Prisma, and integration tests. Emphasis on a clean structure and consistent error handling.",
+    },
+    coverImage: "/covers/devnotes-api.svg",
+    githubUrl: "https://github.com/your-username/devnotes-api",
+    tags: ["Node.js", "Express", "PostgreSQL", "Prisma"],
+    order: 2,
+    visible: true,
+    role: "Solo",
+    year: 2024,
+    status: "completed",
+    createdAt: "2024-11-05T10:00:00.000Z",
+    updatedAt: "2024-12-20T10:00:00.000Z",
+  },
+  {
+    id: "weather-now",
+    title: { he: "Weather Now", en: "Weather Now" },
+    shortDescription: {
+      he: "אפליקציית מזג אוויר מתקדמת (PWA) עם תחזית שבועית ומיקום חי.",
+      en: "A progressive weather app (PWA) with a weekly forecast and live location.",
+    },
+    description: {
+      he: "אפליקציית מזג אוויר הניתנת להתקנה (PWA). מציגה תנאים נוכחיים, תחזית שבועית וגרפים, עם זיהוי מיקום אוטומטי ותמיכה במצב לא-מקוון דרך Service Worker. נבנתה כדי ללמוד אסטרטגיות caching וחוויית אפליקציה מקורית בדפדפן.",
+      en: "An installable weather app (PWA). Shows current conditions, a weekly forecast, and charts, with automatic geolocation and offline support via a service worker. Built to learn caching strategies and a native-feeling browser experience.",
+    },
+    coverImage: "/covers/weather-now.svg",
+    githubUrl: "https://github.com/your-username/weather-now",
+    liveUrl: "https://weather-now.example.com",
+    tags: ["React", "TypeScript", "PWA", "REST API"],
+    order: 3,
+    visible: true,
+    role: "Solo",
+    year: 2024,
+    status: "completed",
+    createdAt: "2024-08-12T10:00:00.000Z",
+    updatedAt: "2024-09-02T10:00:00.000Z",
+  },
+  {
+    id: "shop-mini",
+    title: { he: "Shop Mini", en: "Shop Mini" },
+    shortDescription: {
+      he: "חזית חנות מסחר אלקטרוני עם עגלה, תשלום ועיצוב רספונסיבי.",
+      en: "An e-commerce storefront with cart, checkout, and responsive design.",
+    },
+    description: {
+      he: "חזית לחנות מסחר אלקטרוני. כוללת קטלוג מוצרים, עגלת קניות מתמשכת, תהליך תשלום משולב Stripe ועיצוב רספונסיבי מלא. בנויה ב-Next.js עם רינדור בצד שרת לעמודי מוצר ושיפור SEO.",
+      en: "An e-commerce storefront. Includes a product catalog, a persistent cart, a Stripe-integrated checkout, and a fully responsive layout. Built with Next.js using server rendering for product pages and improved SEO.",
+    },
+    coverImage: "/covers/shop-mini.svg",
+    githubUrl: "https://github.com/your-username/shop-mini",
+    liveUrl: "https://shop-mini.example.com",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Stripe"],
+    featured: true,
+    order: 4,
+    visible: true,
+    role: "Lead",
+    year: 2025,
+    status: "in-progress",
+    createdAt: "2025-04-01T10:00:00.000Z",
+    updatedAt: "2025-05-15T10:00:00.000Z",
+  },
+  {
+    id: "chatter",
+    title: { he: "Chatter", en: "Chatter" },
+    shortDescription: {
+      he: "צ'אט בזמן אמת עם חדרים, אינדיקציית הקלדה והודעות מתמשכות.",
+      en: "A realtime chat app with rooms, typing indicators, and message history.",
+    },
+    description: {
+      he: "אפליקציית צ'אט בזמן אמת מבוססת WebSocket. תומכת בחדרי שיחה, אינדיקציית הקלדה, סטטוס מקוון ושמירת היסטוריית הודעות ב-MongoDB. נבנתה כדי לתרגל תקשורת דו-כיוונית ועדכוני UI אופטימיים.",
+      en: "A realtime WebSocket chat app. Supports chat rooms, typing indicators, online presence, and message history stored in MongoDB. Built to practice bidirectional communication and optimistic UI updates.",
+    },
+    coverImage: "/covers/chatter.svg",
+    githubUrl: "https://github.com/your-username/chatter",
+    liveUrl: "https://chatter.example.com",
+    tags: ["React", "Node.js", "WebSocket", "MongoDB"],
+    order: 5,
+    visible: true,
+    role: "Solo",
+    year: 2023,
+    status: "completed",
+    createdAt: "2023-12-01T10:00:00.000Z",
+    updatedAt: "2024-01-10T10:00:00.000Z",
+  },
+  {
+    id: "portfolio-cli",
+    title: { he: "Portfolio CLI", en: "Portfolio CLI" },
+    shortDescription: {
+      he: "כלי שורת פקודה לפיגום פרויקטים עם תבניות אינטראקטיביות.",
+      en: "A command-line tool for scaffolding projects with interactive templates.",
+    },
+    description: {
+      he: "כלי CLI לפיגום פרויקטים חדשים. שואל שאלות אינטראקטיביות, מייצר מבנה תיקיות ומתקין תלויות לפי תבנית נבחרת. פורסם כחבילת npm עם בדיקות ותיעוד. דגש על חוויית מפתח (DX) נעימה.",
+      en: "A CLI for scaffolding new projects. Asks interactive questions, generates a folder structure, and installs dependencies based on a chosen template. Published as an npm package with tests and docs. Focused on a pleasant developer experience (DX).",
+    },
+    coverImage: "/covers/portfolio-cli.svg",
+    githubUrl: "https://github.com/your-username/portfolio-cli",
+    tags: ["Node.js", "TypeScript", "CLI"],
+    order: 6,
+    visible: true,
+    role: "Solo",
+    year: 2023,
+    status: "archived",
+    createdAt: "2023-06-18T10:00:00.000Z",
+    updatedAt: "2023-07-02T10:00:00.000Z",
+  },
+  {
+    // Hidden on purpose — verifies the public data layer excludes it.
+    id: "secret-draft",
+    title: { he: "טיוטה פנימית", en: "Internal Draft" },
+    shortDescription: {
+      he: "פרויקט שעוד לא פורסם — לא אמור להופיע באתר הציבורי.",
+      en: "An unpublished project — should not appear on the public site.",
+    },
+    description: {
+      he: "רשומה מוסתרת לבדיקה.",
+      en: "A hidden record used for testing.",
+    },
+    coverImage: "/covers/taskflow.svg",
+    tags: ["React"],
+    order: 99,
+    visible: false,
+    createdAt: "2025-06-01T10:00:00.000Z",
+    updatedAt: "2025-06-01T10:00:00.000Z",
+  },
+];

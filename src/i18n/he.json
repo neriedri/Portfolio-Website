@@ -1,0 +1,54 @@
+{
+  "nav": {
+    "skipToContent": "דילוג לתוכן"
+  },
+  "actions": {
+    "toggleTheme": "החלפת מצב תצוגה",
+    "toggleLanguage": "החלפת שפה",
+    "openMenu": "פתיחת תפריט",
+    "closeMenu": "סגירת תפריט"
+  },
+  "hero": {
+    "greeting": "שלום, אני",
+    "role": "מפתח Frontend · Full-stack",
+    "bio": "מפתח שאוהב לבנות ממשקים נקיים, מהירים ונגישים. הנה כמה מהפרויקטים שבניתי.",
+    "cta": "צפייה בפרויקטים",
+    "viewGithub": "GitHub",
+    "viewLinkedin": "LinkedIn",
+    "sendEmail": "אימייל"
+  },
+  "projects": {
+    "heading": "פרויקטים",
+    "filterAll": "הכל",
+    "filterLabel": "סינון לפי תגית",
+    "viewProject": "צפייה בפרויקט",
+    "featured": "מודגש",
+    "emptyTitle": "אין פרויקטים להצגה",
+    "emptyBody": "לא נמצאו פרויקטים שתואמים לסינון. נסו תגית אחרת.",
+    "loading": "טוען פרויקטים"
+  },
+  "detail": {
+    "back": "חזרה לפרויקטים",
+    "viewOnGithub": "צפייה ב-GitHub",
+    "liveDemo": "דמו חי",
+    "aboutHeading": "על הפרויקט",
+    "techHeading": "טכנולוגיות",
+    "role": "תפקיד",
+    "year": "שנה",
+    "status": "סטטוס",
+    "statusValues": {
+      "completed": "הושלם",
+      "in-progress": "בתהליך",
+      "archived": "בארכיון"
+    }
+  },
+  "footer": {
+    "builtWith": "נבנה עם",
+    "rights": "כל הזכויות שמורות"
+  },
+  "notFound": {
+    "title": "הפרויקט לא נמצא",
+    "body": "הפרויקט שחיפשתם אינו קיים או הוסר.",
+    "back": "חזרה לדף הבית"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "nav": {
+    "skipToContent": "Skip to content"
+  },
+  "actions": {
+    "toggleTheme": "Toggle theme",
+    "toggleLanguage": "Toggle language",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "role": "Frontend · Full-stack Developer",
+    "bio": "A developer who loves building clean, fast, and accessible interfaces. Here are a few of the projects I've built.",
+    "cta": "View projects",
+    "viewGithub": "GitHub",
+    "viewLinkedin": "LinkedIn",
+    "sendEmail": "Email"
+  },
+  "projects": {
+    "heading": "Projects",
+    "filterAll": "All",
+    "filterLabel": "Filter by tag",
+    "viewProject": "View project",
+    "featured": "Featured",
+    "emptyTitle": "No projects to show",
+    "emptyBody": "No projects match this filter. Try a different tag.",
+    "loading": "Loading projects"
+  },
+  "detail": {
+    "back": "Back to projects",
+    "viewOnGithub": "View on GitHub",
+    "liveDemo": "Live Demo",
+    "aboutHeading": "About the project",
+    "techHeading": "Technologies",
+    "role": "Role",
+    "year": "Year",
+    "status": "Status",
+    "statusValues": {
+      "completed": "Completed",
+      "in-progress": "In progress",
+      "archived": "Archived"
+    }
+  },
+  "footer": {
+    "builtWith": "Built with",
+    "rights": "All rights reserved"
+  },
+  "notFound": {
+    "title": "Project not found",
+    "body": "The project you're looking for doesn't exist or was removed.",
+    "back": "Back to home"
+  }
+}

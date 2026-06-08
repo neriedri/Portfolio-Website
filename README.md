@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio Website
 
-## Getting Started
+A private personal portfolio for showcasing development projects. Bilingual
+(Hebrew/English, RTL/LTR) with dark/light themes.
 
-First, run the development server:
+> **Status:** MVP (Phase 1) — public site running on mock data. Backend, admin
+> panel, and auth are planned later phases (see [PRD.md](PRD.md)).
+
+## Stack
+
+- **Next.js 16** (App Router) + **React 19** + **TypeScript**
+- **Tailwind CSS v4** (CSS-based config, class dark mode)
+- Lightweight client-side **i18n** (`localStorage` toggle, no locale routing)
+- Mock data behind a data-access layer — Prisma/DB wired in a later phase
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Other scripts:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build    # production build (also type-checks)
+npm run start    # serve the production build
+npm run lint     # ESLint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copy `.env.example` to `.env.local` if you need to override defaults (none are
+required for the MVP).
 
-## Learn More
+## Personalizing
 
-To learn more about Next.js, take a look at the following resources:
+- **Identity & links:** `src/lib/site-config.ts` (name, GitHub/LinkedIn/email).
+- **Projects:** `src/lib/mock-data.ts` (titles/descriptions are bilingual).
+- **Cover art:** `public/covers/*.svg`.
+- **UI strings:** `src/i18n/he.json` and `src/i18n/en.json`.
+- **Design tokens (colors):** `src/app/globals.css`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## How it's organized
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/                  # routes: / and /projects/[id]
+├── components/
+│   ├── providers/        # theme + language context
+│   ├── ui/               # Button, Tag, Skeleton, toggles, icons
+│   ├── layout/           # Header, Footer, SkipLink
+│   ├── projects/         # cards, grid, filter, detail
+│   └── sections/         # Hero, 404 view
+├── i18n/                 # he.json / en.json + config
+├── lib/                  # projects.ts (data-access), site-config, utils
+└── types/                # Project model
+```
 
-## Deploy on Vercel
+`src/lib/projects.ts` is the single seam for the future backend: it reads mock
+data today and is the only file that changes when the API/DB lands.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Notes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Theme and text direction are applied **before first paint** via an inline
+  script (`src/lib/theme-script.ts`) to avoid a flash of the wrong theme/dir.
+- Language preference persists in `localStorage`. On a full page reload the
+  text content briefly renders in the default language (Hebrew) before
+  reconciling — a known MVP tradeoff; a cookie-based SSR locale can remove it.
+- The site is marked `noindex` (private portfolio).
+# Portfolio-Website
