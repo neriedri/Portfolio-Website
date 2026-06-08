@@ -117,3 +117,24 @@ export function MailIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function HomeIcon(props: IconProps) {
+  return (
+    <svg {...baseStroke} width="20" height="20" {...props}>
+      <path d="M3 10.5 12 3l9 7.5" />
+      <path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5" />
+      <path d="M9.5 21v-6h5v6" />
+    </svg>
+  );
+}
+
+/** Universal "access" figure for the accessibility launcher button. */
+export function AccessibilityIcon(props: IconProps) {
+  return (
+    <svg {...baseStroke} width="24" height="24" {...props}>
+      <circle cx="12" cy="4" r="1.6" />
+      <path d="M5.5 7.5c2 1 4 1.5 6.5 1.5s4.5-.5 6.5-1.5" />
+      <path d="M12 9v5m0 0-2.5 6m2.5-6 2.5 6" />
+    </svg>
+  );
+}

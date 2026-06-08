@@ -6,7 +6,7 @@ import type { Project } from "@/types/project";
  * intentionally includes edge cases: a project with no liveUrl, and one that
  * is hidden (visible: false) to verify the public layer filters it out.
  */
-export const mockProjects: Project[] = [
+const mockBase: Omit<Project, "images">[] = [
   {
     id: "taskflow",
     title: { he: "TaskFlow", en: "TaskFlow" },
@@ -165,3 +165,9 @@ export const mockProjects: Project[] = [
     updatedAt: "2025-06-01T10:00:00.000Z",
   },
 ];
+
+// Mock projects ship single-image; the gallery starts empty.
+export const mockProjects: Project[] = mockBase.map((p) => ({
+  ...p,
+  images: [],
+}));

@@ -5,9 +5,9 @@ import { useTranslations } from "@/components/providers/language-provider";
 import { cn } from "@/lib/utils";
 
 const chip =
-  "rounded-full border px-3 py-1 font-mono text-xs transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background";
+  "rounded-full border px-3 py-1 font-mono text-xs transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
-const active = "border-accent bg-accent text-accent-foreground";
+const active = "border-accent bg-accent text-accent-foreground tag-pulse";
 const inactive =
   "border-border bg-background text-muted hover:text-foreground hover:border-foreground/30";
 

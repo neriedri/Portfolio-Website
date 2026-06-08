@@ -46,14 +46,18 @@
 }
 
 @layer base {
-  body {
+  /* Background lives on <html> (not <body>) so the fixed mesh/particle layers,
+     which sit at negative z-index, remain visible through a transparent body. */
+  html {
     background-color: var(--background);
+    transition: background-color 200ms ease;
+  }
+  body {
+    background-color: transparent;
     color: var(--foreground);
     font-family: var(--font-sans);
-    /* Smooth 200ms transition between dark/light (PRD §5.6) */
-    transition:
-      background-color 200ms ease,
-      color 200ms ease;
+    /* Smooth 200ms theme transition (PRD §5.6) */
+    transition: color 200ms ease;
   }
 
   /* Visible keyboard focus everywhere (PRD §4.7 a11y) */
@@ -87,13 +91,207 @@
   }
 }
 
+/* ---------------------------------------------------------------------------
+   Mesh gradient backdrop — soft, slowly drifting accent blobs behind the page
+   to give a "living", premium feel. Sits at -z, pointer-events:none, and is
+   stronger in dark mode. Rendered by <MeshBackground />.
+--------------------------------------------------------------------------- */
+.mesh-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+  display: none; /* dark-mode-only decorative backdrop */
+}
+.dark .mesh-bg {
+  display: block;
+}
+.mesh-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.3;
+  will-change: transform;
+}
+@keyframes mesh-float-a {
+  to {
+    transform: translate3d(7%, 9%, 0) scale(1.18);
+  }
+}
+@keyframes mesh-float-b {
+  to {
+    transform: translate3d(-9%, -7%, 0) scale(1.12);
+  }
+}
+
+/* Constellation particle canvas (see <ParticleField />). Fixed behind content,
+   above the mesh, faded out toward the page bottom. */
+.particle-field {
+  position: fixed;
+  inset: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: -9;
+  pointer-events: none;
+  opacity: 0; /* dark-mode-only; faded out in light */
+  transition: opacity 0.3s ease;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 30%,
+    transparent 80%
+  );
+  mask-image: linear-gradient(to bottom, #000 0%, #000 30%, transparent 80%);
+}
+.dark .particle-field {
+  opacity: 0.6;
+}
+
+/* Staggered entrance reveal (hero elements). Delay is set inline per element. */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.reveal {
+  opacity: 0;
+  animation: reveal-up 0.6s ease-out both;
+}
+
+@layer components {
+  /* Hover micro-interaction: lift + accent glow + accent border. */
+  .lift {
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      border-color 0.2s ease,
+      background-color 0.2s ease;
+  }
+  .lift:hover {
+    transform: translateY(-2px);
+  }
+  .glow:hover {
+    border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
+    box-shadow: 0 12px 36px -14px color-mix(in srgb, var(--accent) 65%, transparent);
+  }
+  /* Primary CTA: persistent accent glow, intensifies on hover. */
+  .cta-glow {
+    box-shadow: 0 10px 32px -12px color-mix(in srgb, var(--accent) 70%, transparent);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  .cta-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 44px -10px color-mix(in srgb, var(--accent) 90%, transparent);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Project card — lift + accent glow + brighter border on hover/keyboard focus.
+   Driven by the parent <a class="group">.
+--------------------------------------------------------------------------- */
+@layer components {
+  .project-card {
+    transition:
+      transform 250ms ease,
+      box-shadow 250ms ease,
+      border-color 250ms ease;
+  }
+  .group:hover .project-card,
+  .group:focus-visible .project-card {
+    transform: scale(1.02);
+    border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+    box-shadow: 0 14px 50px -14px color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+}
+
+/* Active tag chip: gentle outward pulse ring to signal the live filter. */
+@keyframes tag-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 50%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 0%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 0%, transparent);
+  }
+}
+.tag-pulse {
+  animation: tag-pulse 2.4s ease-out infinite;
+}
+
+/* ---------------------------------------------------------------------------
+   Accessibility widget adaptations (Israeli IS 5568 / WCAG 2.0 AA). Applied as
+   classes / a CSS var on <html> by <AccessibilityWidget />.
+--------------------------------------------------------------------------- */
+/* Font scaling — scales the rem base, so the whole UI grows proportionally. */
+html {
+  font-size: calc(100% * var(--a11y-font-scale, 1));
+}
+
+/* High-contrast mode: forced black/white/yellow, overrides the theme tokens
+   (higher specificity than .dark / :root, so it wins regardless of theme). */
+html.a11y-contrast {
+  --background: #000000;
+  --surface: #000000;
+  --foreground: #ffffff;
+  --muted: #ffffff;
+  --accent: #ffff00;
+  --accent-foreground: #000000;
+  --border: #ffffff;
+  color-scheme: dark;
+}
+html.a11y-contrast .mesh-bg,
+html.a11y-contrast .particle-field {
+  display: none;
+}
+
+/* Highlight links: make every link unmistakable. */
+html.a11y-links a {
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+  font-weight: 600;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .animate-fade-in {
+  .animate-fade-in,
+  .reveal {
     animation: none;
+    opacity: 1;
+  }
+  .mesh-blob,
+  .tag-pulse {
+    animation: none !important;
   }
   *,
   *::before,
   *::after {
     transition-duration: 0.01ms !important;
   }
+}
+
+/* "Stop animations" toggle in the accessibility widget (independent of the OS
+   setting above). */
+html.a11y-no-motion .mesh-blob,
+html.a11y-no-motion .tag-pulse,
+html.a11y-no-motion .animate-fade-in {
+  animation: none !important;
+}
+html.a11y-no-motion .reveal {
+  animation: none !important;
+  opacity: 1;
+}
+html.a11y-no-motion *,
+html.a11y-no-motion *::before,
+html.a11y-no-motion *::after {
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
 }

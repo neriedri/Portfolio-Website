@@ -1,6 +1,7 @@
 {
   "nav": {
-    "skipToContent": "דילוג לתוכן"
+    "skipToContent": "דילוג לתוכן",
+    "home": "מעבר לדף הבית"
   },
   "actions": {
     "toggleTheme": "החלפת מצב תצוגה",
@@ -33,6 +34,7 @@
     "liveDemo": "דמו חי",
     "aboutHeading": "על הפרויקט",
     "techHeading": "טכנולוגיות",
+    "image": "תמונה",
     "role": "תפקיד",
     "year": "שנה",
     "status": "סטטוס",
@@ -44,7 +46,20 @@
   },
   "footer": {
     "builtWith": "נבנה עם",
-    "rights": "כל הזכויות שמורות"
+    "rights": "כל הזכויות שמורות",
+    "accessibility": "הצהרת נגישות"
+  },
+  "a11y": {
+    "title": "תפריט נגישות",
+    "fontSize": "גודל טקסט",
+    "increase": "הגדלת טקסט",
+    "decrease": "הקטנת טקסט",
+    "contrast": "ניגודיות גבוהה",
+    "highlightLinks": "הדגשת קישורים",
+    "stopMotion": "עצירת אנימציות",
+    "reset": "איפוס",
+    "statement": "הצהרת נגישות",
+    "close": "סגירה"
   },
   "notFound": {
     "title": "הפרויקט לא נמצא",

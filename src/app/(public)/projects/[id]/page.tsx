@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getProjectById, getProjects } from "@/lib/projects";
+import { getProjectById } from "@/lib/projects";
 import { ProjectDetail } from "@/components/projects/project-detail";
 
-/** Pre-render a page for each visible project. */
-export async function generateStaticParams() {
-  const projects = await getProjects();
-  return projects.map((project) => ({ id: project.id }));
-}
+// Render at request time so admin edits appear immediately (DB-backed).
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,

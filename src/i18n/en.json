@@ -1,6 +1,7 @@
 {
   "nav": {
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "home": "Go to home"
   },
   "actions": {
     "toggleTheme": "Toggle theme",
@@ -33,6 +34,7 @@
     "liveDemo": "Live Demo",
     "aboutHeading": "About the project",
     "techHeading": "Technologies",
+    "image": "Image",
     "role": "Role",
     "year": "Year",
     "status": "Status",
@@ -44,7 +46,20 @@
   },
   "footer": {
     "builtWith": "Built with",
-    "rights": "All rights reserved"
+    "rights": "All rights reserved",
+    "accessibility": "Accessibility statement"
+  },
+  "a11y": {
+    "title": "Accessibility menu",
+    "fontSize": "Text size",
+    "increase": "Increase text size",
+    "decrease": "Decrease text size",
+    "contrast": "High contrast",
+    "highlightLinks": "Highlight links",
+    "stopMotion": "Stop animations",
+    "reset": "Reset",
+    "statement": "Accessibility statement",
+    "close": "Close"
   },
   "notFound": {
     "title": "Project not found",

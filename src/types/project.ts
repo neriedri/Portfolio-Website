@@ -21,8 +21,10 @@ export interface Project {
   description: I18nText;
   /** Short summary for cards (≤ ~160 chars). */
   shortDescription: I18nText;
-  /** Cover image path/URL. */
+  /** Cover image path/URL (primary; used for the card thumbnail + detail hero). */
   coverImage: string;
+  /** Extra gallery images beyond the cover. Empty for single-image projects. */
+  images: string[];
   githubUrl?: string;
   liveUrl?: string;
   tags: string[];

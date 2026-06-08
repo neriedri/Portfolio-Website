@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Inter, Heebo, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/lib/site-config";
 import { themeInitScript } from "@/lib/theme-script";
 import { Providers } from "@/components/providers";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
-import { SkipLink } from "@/components/layout/skip-link";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 // Latin text uses Inter; Hebrew glyphs (absent from Inter) fall back to Heebo
 // automatically per-glyph. JetBrains Mono is used for tags/code.
@@ -27,18 +27,22 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: `${siteConfig.name} — Portfolio`,
-    template: `%s — ${siteConfig.name}`,
+    default: `${siteConfig.name.en} — Portfolio`,
+    template: `%s — ${siteConfig.name.en}`,
   },
   description:
     "Personal portfolio showcasing frontend and full-stack development projects.",
   robots: { index: false, follow: false },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // Nonce set by the Proxy; applied to our inline theme script so it survives
+  // the strict CSP. Next applies the same nonce to its own scripts automatically.
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
   return (
     // Default locale is Hebrew (RTL); the init script reconciles with the
     // visitor's stored preference before paint. suppressHydrationWarning lets
@@ -50,17 +54,14 @@ export default function RootLayout({
       className={`${inter.variable} ${heebo.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-        <Providers>
-          <SkipLink />
-          <Header />
-          <main id="main-content" className="flex-1">
-            <div className="mx-auto w-full max-w-5xl px-4 sm:px-6">
-              {children}
-            </div>
-          </main>
-          <Footer />
-        </Providers>
+        <script
+          nonce={nonce}
+          // Browsers blank the nonce attribute after applying it, so the
+          // hydrated DOM differs from what React rendered — expected, suppress it.
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{ __html: themeInitScript }}
+        />
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

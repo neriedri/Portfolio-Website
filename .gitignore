@@ -34,6 +34,10 @@ yarn-error.log*
 .env*
 !.env.example
 
+# uploaded images (local dev — production uses cloud storage)
+/public/uploads/*
+!/public/uploads/.gitkeep
+
 # vercel
 .vercel
 

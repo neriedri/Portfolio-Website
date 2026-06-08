@@ -1,9 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import type { Project } from "@/types/project";
 import { useLanguage } from "@/components/providers/language-provider";
 import { pickLocale } from "@/i18n/config";
+import { cn } from "@/lib/utils";
 import { CoverImage } from "./cover-image";
 import { Tag } from "@/components/ui/tag";
 import { buttonVariants } from "@/components/ui/button";
@@ -19,6 +22,11 @@ export function ProjectDetail({ project }: { project: Project }) {
   const title = pickLocale(project.title, locale);
   const description = pickLocale(project.description, locale);
   const paragraphs = description.split("\n\n");
+
+  // Cover first, then extra gallery images (deduped). Clicking a thumb swaps the hero.
+  const gallery = Array.from(new Set([project.coverImage, ...project.images]));
+  const [active, setActive] = useState(0);
+  const activeSrc = gallery[Math.min(active, gallery.length - 1)];
 
   const meta: { label: string; value: string }[] = [];
   if (project.role) meta.push({ label: t.detail.role, value: project.role });
@@ -43,13 +51,36 @@ export function ProjectDetail({ project }: { project: Project }) {
 
       <div className="mt-6 overflow-hidden rounded-2xl border border-border">
         <CoverImage
-          src={project.coverImage}
+          src={activeSrc}
           alt={title}
           sizes="(max-width: 1024px) 100vw, 1024px"
           priority
           className="aspect-[16/8]"
         />
       </div>
+
+      {gallery.length > 1 && (
+        <ul className="mt-3 flex flex-wrap gap-2">
+          {gallery.map((src, i) => (
+            <li key={src}>
+              <button
+                type="button"
+                onClick={() => setActive(i)}
+                aria-label={`${t.detail.image} ${i + 1}`}
+                aria-current={i === active}
+                className={cn(
+                  "relative block h-16 w-24 overflow-hidden rounded-lg border transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                  i === active
+                    ? "border-accent ring-1 ring-accent"
+                    : "border-border opacity-70 hover:opacity-100",
+                )}
+              >
+                <Image src={src} alt="" fill sizes="96px" className="object-cover" />
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
 
       <header className="mt-8">
         <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">

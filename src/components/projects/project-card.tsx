@@ -4,7 +4,7 @@ import Link from "next/link";
 import type { Project } from "@/types/project";
 import { useLanguage } from "@/components/providers/language-provider";
 import { pickLocale } from "@/i18n/config";
-import { CoverImage } from "./cover-image";
+import { ProjectCover } from "./project-cover";
 import { Tag } from "@/components/ui/tag";
 
 const CARD_SIZES =
@@ -20,20 +20,30 @@ export function ProjectCard({
   const { locale, t } = useLanguage();
   const title = pickLocale(project.title, locale);
   const summary = pickLocale(project.shortDescription, locale);
+  // Cover first, then any extra gallery images (deduped) — drives the slideshow.
+  const slides = Array.from(new Set([project.coverImage, ...project.images]));
 
   return (
     <Link
       href={`/projects/${project.id}`}
       className="group block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     >
-      <article className="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-sm transition duration-200 group-hover:scale-[1.02] group-hover:shadow-lg">
-        <CoverImage
-          src={project.coverImage}
-          alt={title}
-          sizes={CARD_SIZES}
-          priority={priority}
-          className="aspect-[16/10]"
-        />
+      <article className="project-card flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-sm">
+        <div className="relative">
+          <ProjectCover
+            images={slides}
+            alt={title}
+            sizes={CARD_SIZES}
+            priority={priority}
+            className="aspect-[16/10]"
+          />
+          {/* Floating CTA revealed on hover / keyboard focus of the card. */}
+          <div className="pointer-events-none absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/55 via-black/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+            <span className="mb-4 inline-flex translate-y-2 items-center gap-1.5 rounded-full bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground shadow-lg transition-transform duration-300 group-hover:translate-y-0 group-focus-visible:translate-y-0">
+              {t.projects.viewProject}
+            </span>
+          </div>
+        </div>
         <div className="flex flex-1 flex-col p-5">
           <div className="flex items-start justify-between gap-2">
             <h3 className="font-semibold text-foreground">{title}</h3>
