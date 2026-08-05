@@ -23,6 +23,10 @@ interface P {
   /** Public URL of the running app. Absent for local/desktop builds — those
    *  render the steady "completed" badge instead of the pulsing "live" one. */
   liveUrl?: string;
+  /** Only set this for repos that are public. A private repo 404s for every
+   *  visitor while still loading fine for the signed-in owner, so a link to one
+   *  looks healthy in testing and is broken for everyone else. */
+  githubUrl?: string;
 }
 
 const projects: P[] = [
@@ -45,6 +49,7 @@ const projects: P[] = [
     featured: true,
     order: 1,
     liveUrl: "https://generate-sql-server-configuration-i.vercel.app/",
+    githubUrl: "https://github.com/neriedri/Generate-SQL-Server-Configuration_ini",
   },
   {
     id: "fincoreai",
@@ -147,6 +152,7 @@ async function main() {
       year: p.year,
       status: p.status as never,
       liveUrl: p.liveUrl ?? null,
+      githubUrl: p.githubUrl ?? null,
     };
     await prisma.project.upsert({
       where: { id: p.id },
