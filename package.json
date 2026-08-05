@@ -9,6 +9,7 @@
     "lint": "eslint",
     "postinstall": "prisma generate",
     "db:seed": "prisma db seed",
+    "db:seed:real": "tsx prisma/seed-real-projects.ts",
     "db:deploy": "prisma migrate deploy",
     "hash-password": "node scripts/hash-password.mjs"
   },

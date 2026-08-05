@@ -15,11 +15,14 @@ interface P {
   descHe: string;
   descEn: string;
   tags: string[];
-  slug: string; // matches /public/SS/<slug>-N.svg
+  slug: string; // matches /public/covers/<slug>.webp
   status: Status;
   year: number;
   featured: boolean;
   order: number;
+  /** Public URL of the running app. Absent for local/desktop builds — those
+   *  render the steady "completed" badge instead of the pulsing "live" one. */
+  liveUrl?: string;
 }
 
 const projects: P[] = [
@@ -41,6 +44,7 @@ const projects: P[] = [
     year: 2026,
     featured: true,
     order: 1,
+    liveUrl: "https://generate-sql-server-configuration-i.vercel.app/",
   },
   {
     id: "fincoreai",
@@ -117,6 +121,7 @@ const projects: P[] = [
     year: 2026,
     featured: true,
     order: 5,
+    liveUrl: "https://zfborder.org",
   },
 ];
 
@@ -131,14 +136,17 @@ async function main() {
       shortDescriptionEn: p.shortEn,
       descriptionHe: p.descHe,
       descriptionEn: p.descEn,
-      coverImage: `/SS/${p.slug}-1.svg`,
-      images: [`/SS/${p.slug}-2.svg`, `/SS/${p.slug}-3.svg`],
+      // Real screenshots, committed under public/ so they ship with the build —
+      // public/uploads is gitignored and never reaches the deployment.
+      coverImage: `/covers/${p.slug}.webp`,
+      images: [],
       tags: p.tags,
       featured: p.featured,
       order: p.order,
       visible: true,
       year: p.year,
       status: p.status as never,
+      liveUrl: p.liveUrl ?? null,
     };
     await prisma.project.upsert({
       where: { id: p.id },
