@@ -32,7 +32,6 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
-!.env.example
 
 # uploaded images (local dev — production uses cloud storage)
 /public/uploads/*
@@ -44,3 +43,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.env*
+
+# Keep last: `vercel env pull` appends a bare `.env*` rule on every run, and the
+# last matching pattern wins — so this negation has to sit below it.
+!.env.example
