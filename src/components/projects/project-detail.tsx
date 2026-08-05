@@ -8,6 +8,7 @@ import { useLanguage } from "@/components/providers/language-provider";
 import { pickLocale } from "@/i18n/config";
 import { cn } from "@/lib/utils";
 import { CoverImage } from "./cover-image";
+import { LiveBadge } from "./live-badge";
 import { Tag } from "@/components/ui/tag";
 import { buttonVariants } from "@/components/ui/button";
 import {
@@ -49,7 +50,7 @@ export function ProjectDetail({ project }: { project: Project }) {
         {t.detail.back}
       </Link>
 
-      <div className="mt-6 overflow-hidden rounded-2xl border border-border">
+      <div className="relative mt-6 overflow-hidden rounded-2xl border border-border">
         <CoverImage
           src={activeSrc}
           alt={title}
@@ -57,6 +58,10 @@ export function ProjectDetail({ project }: { project: Project }) {
           priority
           className="aspect-[16/8]"
         />
+        {project.status === "completed" && (
+          <LiveBadge variant={project.liveUrl ? "live" : "done"} />
+        )}
+        {project.status === "in-progress" && <LiveBadge variant="dev" />}
       </div>
 
       {gallery.length > 1 && (

@@ -47,7 +47,14 @@ export function LoginForm() {
       <h1 className="text-2xl font-semibold tracking-tight text-foreground">
         Admin Login
       </h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-4">
+      {/* method="post" is a safety net: the real submit is the JS handler below
+          (a JSON POST). If JS ever fails to run, the native fallback still uses
+          POST — credentials go in the request body, never the URL/query string. */}
+      <form
+        method="post"
+        onSubmit={handleSubmit(onSubmit)}
+        className="mt-8 space-y-4"
+      >
         <Field label="Username" htmlFor="username" error={errors.username?.message}>
           <Input
             id="username"

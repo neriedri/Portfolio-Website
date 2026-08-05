@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Allow the dev server to be reached over the LAN (phone, another device, or
+  // this machine's LAN IP) without Next blocking cross-origin /_next dev assets
+  // — which would stop client JS from hydrating. Add any LAN IPs you use here.
+  // (Dev-only setting; ignored in production.)
+  allowedDevOrigins: ["192.168.126.1"],
   // Keep native/heavy server-only deps out of the bundle.
   serverExternalPackages: ["@prisma/client", ".prisma/client", "sharp"],
   // Baseline security headers (PRD §4.6 — Helmet equivalent). The strict

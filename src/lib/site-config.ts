@@ -17,6 +17,16 @@ export const siteConfig = {
   },
   /** Tech stack credited in the footer. */
   builtWith: "Next.js · TypeScript · Tailwind CSS",
+  /**
+   * Curated tech stack shown on the home page, grouped by category.
+   * `key` maps to a label in i18n (`stack.categories.*`).
+   */
+  techStack: [
+    { key: "backend", items: ["Python", "FastAPI", "SQLAlchemy", "Celery", "Redis"] },
+    { key: "frontend", items: ["React", "TypeScript", "JavaScript", "Tailwind CSS"] },
+    { key: "databases", items: ["PostgreSQL", "SQL Server", "SQLite"] },
+    { key: "automation", items: ["Playwright", "AI Integration"] },
+  ],
 } as const;
 
 export type SiteConfig = typeof siteConfig;

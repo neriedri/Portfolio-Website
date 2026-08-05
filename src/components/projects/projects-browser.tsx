@@ -27,15 +27,18 @@ export function ProjectsBrowser({
       aria-labelledby="projects-heading"
       className="scroll-mt-20"
     >
-      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h2
-          id="projects-heading"
-          className="text-2xl font-semibold tracking-tight text-foreground"
-        >
-          {t.projects.heading}
-        </h2>
+      <div className="mb-8">
+        <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted">
+          {t.projects.tagsHeading}
+        </h3>
         <TagFilter tags={tags} activeTag={activeTag} />
       </div>
+      <h2
+        id="projects-heading"
+        className="mb-8 text-center text-2xl font-semibold tracking-tight text-foreground"
+      >
+        {t.projects.heading}
+      </h2>
       {projects.length > 0 ? (
         <ProjectGrid projects={projects} />
       ) : (

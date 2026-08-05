@@ -77,6 +77,23 @@ export function ImageOffIcon(props: IconProps) {
   );
 }
 
+/** Filled star — marks a featured / pinned project. */
+export function StarIcon(props: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      width="16"
+      height="16"
+      aria-hidden
+      focusable={false}
+      {...props}
+    >
+      <path d="M12 2.5l2.95 5.98 6.6.96-4.77 4.65 1.13 6.57L12 18.56l-5.9 3.1 1.13-6.57L2.46 9.44l6.6-.96L12 2.5z" />
+    </svg>
+  );
+}
+
 export function GitHubIcon(props: IconProps) {
   return (
     <svg

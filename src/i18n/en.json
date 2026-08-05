@@ -11,19 +11,36 @@
   },
   "hero": {
     "greeting": "Hi, I'm",
-    "role": "Frontend · Full-stack Developer",
-    "bio": "A developer who loves building clean, fast, and accessible interfaces. Here are a few of the projects I've built.",
+    "role": "Full-Stack Developer specializing in automation, web systems, and AI-powered solutions",
+    "bio": "I build systems born from the real needs of businesses and users — from automations and workflows to management platforms and AI-powered systems.",
     "cta": "View projects",
     "viewGithub": "GitHub",
     "viewLinkedin": "LinkedIn",
     "sendEmail": "Email"
   },
+  "about": {
+    "heading": "A little about me",
+    "body": "I started developing out of curiosity and a desire to solve real problems. Today I build web systems, automation tools, and AI solutions that help streamline processes and save time. I enjoy learning new technologies and turning ideas into working products."
+  },
+  "stack": {
+    "heading": "The technologies I use in my projects",
+    "categories": {
+      "backend": "Backend",
+      "frontend": "Frontend",
+      "databases": "Databases",
+      "automation": "Automation & AI"
+    }
+  },
   "projects": {
     "heading": "Projects",
+    "tagsHeading": "Tags",
     "filterAll": "All",
     "filterLabel": "Filter by tag",
     "viewProject": "View project",
     "featured": "Featured",
+    "liveBadge": "LIVE",
+    "devBadge": "IN DEV",
+    "doneBadge": "COMPLETED",
     "emptyTitle": "No projects to show",
     "emptyBody": "No projects match this filter. Try a different tag.",
     "loading": "Loading projects"

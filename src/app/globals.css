@@ -228,6 +228,65 @@
   animation: tag-pulse 2.4s ease-out infinite;
 }
 
+/* "LIVE" status dot: a green core that breathes, plus an outward ping ring,
+   to flag a completed / online project on its cover image. */
+@keyframes live-breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+@keyframes live-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  70%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+.live-dot {
+  position: relative;
+  display: inline-block;
+  height: 0.5rem;
+  width: 0.5rem;
+  border-radius: 9999px;
+  background: #22c55e;
+  box-shadow: 0 0 6px color-mix(in srgb, #22c55e 80%, transparent);
+  animation: live-breathe 1.8s ease-in-out infinite;
+}
+.live-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: #22c55e;
+  animation: live-ping 1.8s ease-out infinite;
+}
+/* Orange variant — project still in development. */
+.live-dot--dev,
+.live-dot--dev::after {
+  background: #f59e0b;
+}
+.live-dot--dev {
+  box-shadow: 0 0 6px color-mix(in srgb, #f59e0b 80%, transparent);
+}
+/* Blue variant — project finished but not hosted (local/desktop build). Steady,
+   not pulsing: nothing is running to signal. */
+.live-dot--done {
+  background: #60a5fa;
+  box-shadow: 0 0 6px color-mix(in srgb, #60a5fa 80%, transparent);
+  animation: none;
+}
+.live-dot--done::after {
+  content: none;
+}
+
 /* ---------------------------------------------------------------------------
    Accessibility widget adaptations (Israeli IS 5568 / WCAG 2.0 AA). Applied as
    classes / a CSS var on <html> by <AccessibilityWidget />.
@@ -268,7 +327,9 @@ html.a11y-links a {
     opacity: 1;
   }
   .mesh-blob,
-  .tag-pulse {
+  .tag-pulse,
+  .live-dot,
+  .live-dot::after {
     animation: none !important;
   }
   *,
@@ -282,6 +343,8 @@ html.a11y-links a {
    setting above). */
 html.a11y-no-motion .mesh-blob,
 html.a11y-no-motion .tag-pulse,
+html.a11y-no-motion .live-dot,
+html.a11y-no-motion .live-dot::after,
 html.a11y-no-motion .animate-fade-in {
   animation: none !important;
 }
