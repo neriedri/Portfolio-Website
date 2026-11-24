@@ -2,7 +2,8 @@
  * Fixed-window rate limiter for login (PRD §4.6: 5 attempts / 15 min).
  *
  * Two backends, chosen at runtime:
- *  - **Upstash Redis** when UPSTASH_REDIS_REST_URL/TOKEN are set — shared across
+ *  - **Upstash Redis** when UPSTASH_REDIS_REST_URL/TOKEN (or the Vercel
+ *    integration's KV_REST_API_URL/TOKEN) are set — shared across
  *    all serverless invocations, so the limit actually holds on Vercel.
  *  - **In-memory Map** otherwise — fine for a single local dev server; state
  *    resets on restart and is NOT shared across instances.
@@ -23,8 +24,11 @@ let redisClient: Redis | null | undefined;
 
 function getRedis(): Redis | null {
   if (redisClient !== undefined) return redisClient;
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  // The Vercel Marketplace "Upstash for Redis" integration injects KV_REST_API_*;
+  // a manually configured Upstash database uses UPSTASH_REDIS_REST_*.
+  const url = process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
+  const token =
+    process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN;
   redisClient = url && token ? new Redis({ url, token }) : null;
   return redisClient;
 }
