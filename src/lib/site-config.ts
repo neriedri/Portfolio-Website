@@ -12,7 +12,7 @@ export const siteConfig = {
   initials: "NE",
   social: {
     github: "https://github.com/neriedri",
-    linkedin: "https://www.linkedin.com/in/neri-edri-111388341",
+    linkedin: "https://www.linkedin.com/in/neria-edri-111388341",
     email: "neriapple7@gmail.com",
   },
   /** Tech stack credited in the footer. */
