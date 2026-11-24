@@ -5,7 +5,7 @@ import { randomUUID } from "crypto";
 
 /**
  * Image storage abstraction. Two backends, chosen at runtime:
- *  - **Vercel Blob** when BLOB_READ_WRITE_TOKEN is set (production on Vercel,
+ *  - **Vercel Blob** when BLOB_READ_WRITE_TOKEN or BLOB_STORE_ID (OIDC) is set (production on Vercel,
  *    where the filesystem is ephemeral/read-only).
  *  - **Local disk** (`public/uploads`) otherwise, for local development.
  *
@@ -26,7 +26,8 @@ export async function saveImage(
   const ext = EXT_BY_MIME[contentType] ?? "webp";
   const filename = `${randomUUID()}.${ext}`;
 
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
+  // BLOB_STORE_ID is set instead of the token once the store uses OIDC auth.
+  if (process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID) {
     // Dynamic import keeps @vercel/blob out of the bundle when unused locally.
     const { put } = await import("@vercel/blob");
     const blob = await put(`uploads/${filename}`, data, {
